@@ -23,13 +23,9 @@ const users = [
   },
 ];
 
-let totalBalance = 0;
+const totalBalanceOfUsers = users.reduce((acc, user) => acc + user.balance, 0);
 
-users
-  .map((user) => user.balance)
-  .forEach((userBalance) => (totalBalance += userBalance));
-
-console.log(`Загальна сума всіх користувачів дорівнює: ${totalBalance} грн.`);
+console.log(`Загальна сума всіх користувачів дорівнює: ${totalBalanceOfUsers} грн.`);
 
 // Task 2
 
@@ -134,6 +130,6 @@ const humans = [
   },
 ];
 
-const skillsOfHumans = humans.map(human => human.skills).flat().sort();
+const skillsOfHumans = humans.reduce((acc, human) => acc.concat(human.skills), []).sort();
 
 console.log(skillsOfHumans);
