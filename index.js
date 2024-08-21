@@ -56,9 +56,12 @@ const friendlyPeople = [
   },
 ];
 
-const peopleWithSimilarFriend = friendlyPeople
-  .filter((friend) => friend.friends.includes("Artur"))
-  .map((someFriend) => someFriend.name);
+const peopleWithSimilarFriend = friendlyPeople.reduce((acc, friend) => {
+  if (friend.friends.includes("Artur")) {
+    acc.push(friend.name);
+  }
+  return acc;
+}, []);
 
 console.log(peopleWithSimilarFriend);
 
@@ -91,11 +94,26 @@ const secondFriendlyPeople = [
   },
 ];
 
-const sortedfriendlyPeople = [...secondFriendlyPeople]
-  .sort((currentEl, nextEl) => currentEl.friends.length - nextEl.friends.length)
-  .map((friend) => friend.name);
+const sortedFriendlyPeople = secondFriendlyPeople.reduce(
+  (acc, currentPerson) => {
+    if (currentPerson.friends.length) {
+      acc.push(currentPerson.name);
+    }
+    
+    return acc;
+  },
+  []
+);
 
-console.log(sortedfriendlyPeople);
+sortedFriendlyPeople.sort((currentEl, nextEl) => {
+  const friendsCurrentEl = secondFriendlyPeople.find((person) => person.name === currentEl)
+    .friends.length;
+  const friendsNextEl = secondFriendlyPeople.find((person) => person.name === nextEl)
+    .friends.length;
+  return friendsCurrentEl - friendsNextEl;
+});
+
+console.log(sortedFriendlyPeople);
 
 // Task 4
 
